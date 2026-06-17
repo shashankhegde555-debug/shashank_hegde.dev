@@ -1500,24 +1500,196 @@ body.preloader-active {
 }
 
 /* =========================================================
-   MOBILE TWEAKS FOR INTERACTIONS
+   MOBILE TWEAKS FOR INTERACTIONS  (≤ 767px)
    ========================================================= */
 @media (max-width: 767px) {
+
+  /* Scroll indicator — tuck into corner */
   .scroll-indicator {
     left: 16px;
     bottom: 16px;
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
   }
+
+  /* ── Section headings ── */
   .skills-heading,
-  .exp-section-heading {
-    font-size: clamp(48px, 12vw, 78px);
+  .exp-section-heading,
+  .section-header h2 {
+    font-size: clamp(38px, 10vw, 64px);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Section padding ── */
+  .skills-section,
+  .experience-section {
+    padding: 60px 0;
+  }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     EXPERIENCE — stack vertically on mobile
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .exp-table {
+    margin-top: 36px;
+  }
+
+  /* Row becomes a vertical card-like block */
+  .exp-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 0;
+    gap: 12px;
+    border-left: none !important;       /* remove left border — no room */
+    border-top: 1px solid #e8e8e8;
+  }
+  .exp-row:last-child {
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  /* Kill hover states on touch — they get stuck */
+  .exp-row:hover {
+    background: transparent;
+    border-left-color: transparent;
+  }
+  .exp-row:hover .exp-date {
+    color: #6d6d6d;
+  }
+  .exp-row:hover .exp-role-title {
+    letter-spacing: normal;
+  }
+
+  /* Date on top, small */
+  .exp-date {
+    flex: none;
+    width: auto;
+    font-size: 11px;
+    color: #6d6d6d;
+    padding-top: 0;
+    white-space: normal;
+    order: 1;
+  }
+
+  /* Role block takes full width */
+  .exp-role {
+    flex: none;
+    width: 100%;
+    padding-right: 0;
+    order: 2;
+    gap: 2px;
+  }
+  .exp-role-title {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.25;
+  }
+  .exp-company {
+    font-size: 11px;
+    color: #6d6d6d;
+  }
+
+  /* Description + tags full-width below role */
+  .exp-body {
+    order: 3;
+    width: 100%;
+  }
+  .exp-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .exp-tags {
+    gap: 6px;
+  }
+  .exp-tag {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SKILLS — collapse two-column to single
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .skills-two-col {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 36px;
+  }
+
+  /* Focus areas list — tighter rows */
+  .focus-item {
+    padding: 16px 8px;
+    gap: 0;
+  }
+  .focus-index {
+    flex: 0 0 32px;
+    font-size: 10px;
+  }
+  .focus-name {
+    font-size: 16px;
+  }
+  /* Keep arrow hidden on mobile — no hover on touch */
+  .focus-arrow {
+    display: none;
+  }
+  /* Suppress hover background on touch devices */
+  .focus-item:hover {
+    background: transparent;
+    border-color: #e8e8e8;
+  }
+  .focus-item:hover .focus-name {
+    color: #181818;
+  }
+
+  /* Tool badge cloud — wrap tighter */
+  .badge-cloud {
+    gap: 6px;
+  }
+  .skill-badge {
+    font-size: 10px;
+    padding: 4px 8px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Category labels */
+  .skill-category-group h4 {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+  .skill-categories {
+    gap: 22px;
+  }
+
+  /* Section label */
+  .col-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* =========================================================
+   TABLET TWEAKS  (768px – 1023px)
+   ========================================================= */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /* Experience — compress fixed columns a bit */
+  .exp-date {
+    flex: 0 0 120px;
+  }
+  .exp-role {
+    flex: 0 0 220px;
+    padding-right: 28px;
   }
   .exp-row {
-    padding: 40px 12px;
-    border-left-width: 2px;
+    padding: 56px 16px;
   }
-  .focus-item {
-    padding: 20px 8px;
+
+  /* Skills — keep two columns but tighter */
+  .skills-two-col {
+    gap: 40px;
+  }
+
+  /* Headings */
+  .skills-heading,
+  .exp-section-heading {
+    font-size: clamp(52px, 8vw, 78px);
   }
 }
