@@ -11,6 +11,9 @@ export default function CustomCursor() {
   const x = useSpring(mouseX, { damping: 20, stiffness: 350, mass: 0.1 });
   const y = useSpring(mouseY, { damping: 20, stiffness: 350, mass: 0.1 });
 
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  if (isTouchDevice) return null;
+
   useEffect(() => {
     // Only render on fine-pointer (mouse) devices
     if (!window.matchMedia('(pointer: fine)').matches) return;

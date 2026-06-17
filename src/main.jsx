@@ -2,64 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import CustomCursor from "./CustomCursor";
+import AuroraBackground from "./components/AuroraBackground";
+import Projects from "./components/Projects";
+import Experience from "./components/Experience";
+import Skills from "./components/Skills";
 import "./styles.css";
-
-const projects = [
-  {
-    number: "01",
-    title: "VoiceCast Studio",
-    focus: "Real-Time Neural Noise Suppression Engine",
-    description:
-      "Engineered a real-time mobile audio isolation system using Android NDK. Integrated Google Oboe to bypass standard audio layers and minimize latency. Implemented RNNoise for speech isolation.",
-    tags: ["Android NDK", "C++", "Google Oboe", "RNNoise"],
-    image: "/project1.png",
-  },
-  {
-    number: "02",
-    title: "The Sleeper Platform",
-    focus: "Hardware Prototyping & Firmware Engineering",
-    description:
-      "Designed a hardware system hidden inside a calculator chassis. Integrated ESP32-C3 with a 0.96-inch I2C OLED and LiPo power circuitry. Authored custom embedded C++ firmware for multi-state UIs.",
-    tags: ["ESP32-C3", "Embedded C++", "I2C", "OLED"],
-    image: "/project2.png",
-  },
-  {
-    number: "03",
-    title: "Android Native Systems",
-    focus: "JNI Bridge & Low-Latency Services",
-    description:
-      "Designed a robust Java Native Interface (JNI) bridge between UI and C++ engine. Implemented Foreground Services and Audio Focus lifecycle listeners for persistent background processing.",
-    tags: ["Android NDK", "JNI", "Foreground Services", "Audio Focus"],
-    image: "/project3.png",
-  },
-  {
-    number: "04",
-    title: "Full-Stack Ecosystem",
-    focus: "API Integration & Gamified Systems",
-    description:
-      "Built a Spotify application clone driven by reverse-engineered media APIs. Engineered a Study Planner with gamification mechanics via FastAPI and Node.js.",
-    tags: ["React", "FastAPI", "Node.js", "REST APIs"],
-    image: "/project4.png",
-  },
-];
-
-const skillColumns = [
-  {
-    title: "Languages & Core",
-    items: ["Python", "JavaScript / TypeScript", "C++", "Java", "HTML5 / CSS3"],
-  },
-  {
-    title: "Backend & AI",
-    items: ["FastAPI", "Node.js / Express", "LLM API Orchestration", "Agentic Workflows", "REST API Design"],
-  },
-  {
-    title: "Systems & Android",
-    items: ["Android NDK / JNI", "Google Oboe (C++)", "Foreground Services", "Audio Focus", "Android Profiler"],
-  },
-];
-
-const marqueeText =
-  "Python · TypeScript · C++ · React · Android NDK · JNI · Foreground Services · Audio Focus · Android Studio Profiler · ESP32-C3 · Embedded C++ · LLM APIs · FastAPI · Node.js ·";
 
 function useReveal() {
   useEffect(() => {
@@ -151,15 +98,32 @@ class ParticleText {
 
     const small = width < 768;
     const lenFactor = Math.max(0.55, 7 / Math.max(this.text.replace(/\s/g, "").length, 1));
-    this.fontSize = small
+    
+    // Calculate initial font size
+    let fontSize = small
       ? Math.min(Math.max(width * 0.14 * lenFactor, 38), 80)
       : Math.min(width * 0.14 * lenFactor, 190);
+
+    // Create temporary context to measure text width
+    const tempCanvas = document.createElement("canvas");
+    const tempCtx = tempCanvas.getContext("2d");
+    tempCtx.font = `300 ${fontSize}px Inter, sans-serif`;
+    const textWidth = tempCtx.measureText(this.text).width;
+
+    // Dynamically scale down font size if it exceeds 85% of screen width
+    const maxTextWidth = width * 0.85;
+    if (textWidth > maxTextWidth) {
+      fontSize = fontSize * (maxTextWidth / textWidth);
+    }
+    this.fontSize = fontSize;
+
     this.particleSize = this.options.particleSize || 1.5;
-    this.particleGap = small ? 5 : this.options.particleGap || 3;
+    this.particleGap = small ? 2 : (this.options.particleGap || 3);
     this.spring = this.options.spring || 0.06;
     this.friction = this.options.friction || 0.88;
     this.repelForce = this.options.repelForce || 10;
     this.color = this.options.color || "#ffffff";
+    this.mouse.radius = small ? 50 : (this.options.mouseRadius || 120);
 
     const offscreen = document.createElement("canvas");
     offscreen.width = width;
@@ -269,16 +233,27 @@ class ParticleText {
 }
 
 function GlobalVideoBackground() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768);
+  }, []);
+
   return (
     <div className="site-video-wrapper" aria-hidden="true">
-      <video
-        className="site-video-bg"
-        src="/bg.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-      />
+      {isMobile ? (
+        <div className="absolute inset-0 bg-[#050505]" style={{ width: '100%', height: '100%' }} />
+      ) : (
+        <video
+          className="site-video-bg"
+          src="/bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        />
+      )}
       {/* Vignette: blends edges + covers Gemini watermark in bottom corners */}
       <div className="video-vignette" />
     </div>
@@ -287,6 +262,22 @@ function GlobalVideoBackground() {
 
 function HeroSection() {
   const canvasRef = useRef(null);
+
+  // Fade scroll indicator out after user scrolls past 70% of hero
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = document.querySelector('.hero');
+      const indicator = document.querySelector('.scroll-indicator');
+      if (!hero || !indicator) return;
+      const scrolled = window.scrollY;
+      const heroHeight = hero.offsetHeight;
+      const past = scrolled > heroHeight * 0.7;
+      indicator.style.opacity = past ? '0' : '1';
+      indicator.style.pointerEvents = past ? 'none' : 'auto';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -511,49 +502,7 @@ function StatsFrame() {
   );
 }
 
-function WorkSection() {
-  return (
-    <section className="work section-white" id="work">
-      <div className="section-container">
-        <div className="section-header reveal">
-          <p className="eyebrow">SELECTED WORK</p>
-          <h2>Projects</h2>
-        </div>
-        <div className="project-grid reveal-stagger">
-          {projects.map((project) => (
-            <article className="project-card" key={project.number}>
-              <div className="project-visual">
-                {project.image && (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="project-bg-image"
-                    loading="lazy"
-                  />
-                )}
-                <div className="project-visual-overlay" />
-                <span className="project-number">{project.number}</span>
-                <h3 className="project-title">{project.title}</h3>
-                <div className="project-tags project-tags-dark">
-                  {project.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="project-copy">
-                <p className="project-focus">{project.focus}</p>
-                <p className="project-description">{project.description}</p>
-                <a href="#contact" className="ghost-link">
-                  VIEW DETAILS <span>→</span>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+
 
 function ManifestoFrame() {
   return (
@@ -580,36 +529,7 @@ function ManifestoFrame() {
   );
 }
 
-function SkillsSection() {
-  return (
-    <section className="skills section-white">
-      <div className="section-container">
-        <div className="section-header reveal">
-          <p className="eyebrow">TECHNICAL STACK</p>
-          <h2>Capabilities</h2>
-        </div>
-      </div>
-      <div className="marquee" aria-label="Technology stack ticker">
-        <div className="marquee-track">
-          <span>{marqueeText}&nbsp;</span>
-          <span>{marqueeText}&nbsp;</span>
-        </div>
-      </div>
-      <div className="section-container skill-grid reveal-stagger">
-        {skillColumns.map((column) => (
-          <div className="skill-column" key={column.title}>
-            <h3>{column.title}</h3>
-            <ul>
-              {column.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+
 
 function AboutSection() {
   return (
@@ -769,14 +689,16 @@ function App() {
       {showLoader && <Preloader onComplete={() => setShowLoader(false)} />}
       <CustomCursor />
       <GlobalVideoBackground />
+      <AuroraBackground />
       <NavBar />
       <main>
         <HeroSection />
         <IntroSection />
         <StatsFrame />
-        <WorkSection />
+        <Projects />
+        <Experience />
         <ManifestoFrame />
-        <SkillsSection />
+        <Skills />
         <AboutSection />
         <ContactSection />
       </main>
