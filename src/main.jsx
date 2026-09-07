@@ -246,7 +246,7 @@ function GlobalVideoBackground() {
       ) : (
         <video
           className="site-video-bg"
-          src="/bg.mp4"
+          src={`${import.meta.env.BASE_URL}bg.mp4`}
           autoPlay
           loop
           muted
@@ -344,7 +344,7 @@ function HeroSection() {
       </svg>
       <a href="#contact" className="hero-video-btn" aria-label="Open to collaborate — scroll to contact">
         <video
-          src="/hero-btn.mp4"
+          src={`${import.meta.env.BASE_URL}hero-btn.mp4`}
           autoPlay
           loop
           muted

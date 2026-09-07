@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Tilt from 'react-parallax-tilt';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const projects = [
   {
     number: "01",
@@ -9,7 +11,7 @@ const projects = [
     description:
       "Engineered a real-time mobile audio isolation system using Android NDK. Integrated Google Oboe to bypass standard audio layers and minimize latency. Implemented RNNoise for speech isolation.",
     tags: ["Android NDK", "C++", "Google Oboe", "RNNoise"],
-    image: "/project1.webp",
+    image: `${baseUrl}project1.webp`,
   },
   {
     number: "02",
@@ -18,7 +20,7 @@ const projects = [
     description:
       "Designed a hardware system hidden inside a calculator chassis. Integrated ESP32-C3 with a 0.96-inch I2C OLED and LiPo power circuitry. Authored custom embedded C++ firmware for multi-state UIs.",
     tags: ["ESP32-C3", "Embedded C++", "I2C", "OLED"],
-    image: "/project2.webp",
+    image: `${baseUrl}project2.webp`,
   },
   {
     number: "03",
@@ -27,7 +29,7 @@ const projects = [
     description:
       "Designed a robust Java Native Interface (JNI) bridge between UI and C++ engine. Implemented Foreground Services and Audio Focus lifecycle listeners for persistent background processing.",
     tags: ["Android NDK", "JNI", "Foreground Services", "Audio Focus"],
-    image: "/project3.webp",
+    image: `${baseUrl}project3.webp`,
   },
   {
     number: "04",
@@ -36,7 +38,7 @@ const projects = [
     description:
       "Built a Spotify application clone driven by reverse-engineered media APIs. Engineered a Study Planner with gamification mechanics via FastAPI and Node.js.",
     tags: ["React", "FastAPI", "Node.js", "REST APIs"],
-    image: "/project4.webp",
+    image: `${baseUrl}project4.webp`,
   },
 ];
 
