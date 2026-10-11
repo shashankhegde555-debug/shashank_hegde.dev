@@ -1,4 +1,7 @@
 {
+  "name": "shashank_hegde.dev",
+  "version": "1.0.0",
+  "homepage": "https://shashankhegde555-debug.github.io/shashank_hegde.dev/",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",

@@ -1,11 +1,22 @@
 # Shashank Hegde — Professional Developer Portfolio
 
+[![Live Site](https://img.shields.io/badge/Live_Site-shashank__hegde.dev-00f0ff?style=for-the-badge&logo=google-chrome&logoColor=black)](https://shashankhegde555-debug.github.io/shashank_hegde.dev/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Active-22c55e?style=for-the-badge&logo=githubpages&logoColor=white)](https://shashankhegde555-debug.github.io/shashank_hegde.dev/)
+
 [![React](https://img.shields.io/badge/React-20232a?style=flat-square&logo=react&logoColor=61dafb)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-646cff?style=flat-square&logo=vite&logoColor=fff)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38b2ac?style=flat-square&logo=tailwind-css&logoColor=fff)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055ff?style=flat-square&logo=framer&logoColor=fff)](https://www.framer.com/motion/)
 
-A premium, highly interactive portfolio website showcasing projects, skills, and background. The site combines modern, dark-themed aesthetics with hardware-accelerated interactive web physics.
+> 🌐 **Live Deployment:** [https://shashankhegde555-debug.github.io/shashank_hegde.dev/](https://shashankhegde555-debug.github.io/shashank_hegde.dev/)
+
+---
+
+## 🔗 Links & Resources
+
+- 🌐 **Live Website:** [https://shashankhegde555-debug.github.io/shashank_hegde.dev/](https://shashankhegde555-debug.github.io/shashank_hegde.dev/)
+- 💻 **Source Repository:** [https://github.com/shashankhegde555-debug/shashank_hegde.dev](https://github.com/shashankhegde555-debug/shashank_hegde.dev)
+- 🚀 **CI/CD Pipeline:** [GitHub Actions Pages Deployment](https://github.com/shashankhegde555-debug/shashank_hegde.dev/actions/workflows/deploy.yml)
 
 ---
 
